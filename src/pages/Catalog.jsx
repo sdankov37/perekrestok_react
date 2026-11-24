@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ProductCard from '../components/ProductCard.jsx';
+import Reveal from '../components/Reveal.jsx';
 import { products } from '../data/products.js';
 
 const CATEGORIES = [
@@ -63,13 +64,13 @@ export default function Catalog() {
         <span className="breadcrumbs__current">Каталог</span>
       </nav>
 
-      <section className="section">
+      <Reveal as="section" className="section">
         <h1 className="section__title">Каталог товаров</h1>
         <p className="hero__text">Выберите категорию и диапазон цены — сетка товаров адаптируется под ширину экрана.</p>
-      </section>
+      </Reveal>
 
       <div className="catalog-layout">
-        <aside className="catalog-filters" aria-label="Фильтры каталога">
+        <Reveal as="aside" className="catalog-filters" aria-label="Фильтры каталога">
           <h2 className="visually-hidden">Фильтры</h2>
           <form className="filters-form" onSubmit={handleSubmit}>
             <fieldset className="filters-form__group">
@@ -122,13 +123,13 @@ export default function Catalog() {
 
             <button type="submit" className="button button--primary button--block">Применить</button>
           </form>
-        </aside>
+        </Reveal>
 
-        <div className="products-grid products-grid--catalog">
+        <Reveal className="products-grid products-grid--catalog" delay={100}>
           {visible.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
-        </div>
+        </Reveal>
       </div>
 
       <p className="catalog-no-results" hidden={visible.length > 0}>

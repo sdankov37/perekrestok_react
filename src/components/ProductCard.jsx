@@ -7,6 +7,9 @@ import { img } from '../utils/asset.js';
 export default function ProductCard({ product }) {
   const { add } = useCart();
   const [added, setAdded] = useState(false);
+  // Анимация появления — только при первом монтировании карточки,
+  // чтобы повторный рендер (фильтры, смена состояния) её не перезапускал.
+  const [entrance] = useState(() => !window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 
   async function handleAdd() {
     try {
@@ -23,7 +26,11 @@ export default function ProductCard({ product }) {
   }
 
   return (
-    <article className="product-card" data-category={product.category} data-price={product.price}>
+    <article
+      className={'product-card' + (entrance ? ' reveal-in' : '')}
+      data-category={product.category}
+      data-price={product.price}
+    >
       <Link to={'/product/' + product.id}>
         <img
           className="product-card__image"

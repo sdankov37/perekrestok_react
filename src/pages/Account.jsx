@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ProductCard from '../components/ProductCard.jsx';
+import Reveal from '../components/Reveal.jsx';
 import { useCart } from '../context/CartContext.jsx';
 import { findProduct } from '../data/products.js';
 
@@ -83,7 +84,7 @@ export default function Account() {
   return (
     <>
       {/* ===== HERO-ПРОФИЛЬ ===== */}
-      <section className="account-hero">
+      <Reveal as="section" className="account-hero">
         <div className="account-hero__inner">
           <div className="account-hero__emoji" aria-hidden="true">🧑</div>
           <div className="account-hero__info">
@@ -103,7 +104,7 @@ export default function Account() {
           <li><strong>{USER.ordersCount}</strong><span>заказов</span></li>
           <li><strong>{USER.toGold}</strong><span>до Gold</span></li>
         </ul>
-      </section>
+      </Reveal>
 
       {/* ===== ЛИПКАЯ НАВИГАЦИЯ ПО РАЗДЕЛАМ ===== */}
       <nav className="account-tabs" aria-label="Разделы кабинета">
@@ -113,7 +114,7 @@ export default function Account() {
       </nav>
 
       {/* ===== КОРЗИНА ===== */}
-      <section className="section account-section" id="cart">
+      <Reveal as="section" className="section account-section" id="cart">
         <div className="account-section__head">
           <h2 className="account-section__title">🛒 Активная корзина</h2>
           <Link to="/catalog" className="account-section__aside-link">+ Добавить товары</Link>
@@ -213,10 +214,10 @@ export default function Account() {
           <Link to="/catalog" className="button button--secondary">Продолжить покупки</Link>
           <button type="button" className="button button--primary">Оформить заказ</button>
         </div>
-      </section>
+      </Reveal>
 
       {/* ===== КЛУБ ПЕРЕКРЁСТОК ===== */}
-      <section className="section account-section" id="loyalty">
+      <Reveal as="section" className="section account-section" id="loyalty">
         <div className="account-section__head">
           <h2 className="account-section__title">⭐ Клуб Перекрёсток</h2>
         </div>
@@ -251,10 +252,10 @@ export default function Account() {
         <p className="loyalty-actions">
           <button type="button" className="button button--primary">Списать баллы при заказе</button>
         </p>
-      </section>
+      </Reveal>
 
       {/* ===== АДРЕСА ===== */}
-      <section className="section account-section" id="addresses">
+      <Reveal as="section" className="section account-section" id="addresses">
         <div className="account-section__head">
           <h2 className="account-section__title">📍 Мои адреса</h2>
           <button type="button" className="button button--secondary button--sm">+ Добавить адрес</button>
@@ -274,10 +275,10 @@ export default function Account() {
             </div>
           ))}
         </div>
-      </section>
+      </Reveal>
 
       {/* ===== ИСТОРИЯ ЗАКАЗОВ ===== */}
-      <section className="section account-section" id="orders">
+      <Reveal as="section" className="section account-section" id="orders">
         <div className="account-section__head">
           <h2 className="account-section__title">📦 История заказов</h2>
         </div>
@@ -308,10 +309,10 @@ export default function Account() {
             </article>
           ))}
         </div>
-      </section>
+      </Reveal>
 
       {/* ===== ИЗБРАННОЕ ===== */}
-      <section className="section account-section" id="favorites">
+      <Reveal as="section" className="section account-section" id="favorites">
         <div className="account-section__head">
           <h2 className="account-section__title">❤ Любимые продукты</h2>
         </div>
@@ -321,10 +322,10 @@ export default function Account() {
             <ProductCard key={id} product={findProduct(id)} />
           ))}
         </div>
-      </section>
+      </Reveal>
 
       {/* ===== ПРОМОКОДЫ И УВЕДОМЛЕНИЯ ===== */}
-      <section className="section account-section" id="settings">
+      <Reveal as="section" className="section account-section" id="settings">
         <div className="account-section__head">
           <h2 className="account-section__title">🎁 Промокоды и уведомления</h2>
         </div>
@@ -355,7 +356,7 @@ export default function Account() {
           />
           <span>Получать рассылку акций и персональных скидок</span>
         </label>
-      </section>
+      </Reveal>
     </>
   );
 }

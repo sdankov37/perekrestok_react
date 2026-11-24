@@ -4,6 +4,18 @@
     animation: reveal-in .45s ease-out var(--reveal-delay, 0ms) backwards;
   }
 
+  /* Появление контента при прокрутке (компонент Reveal).
+     Базовое скрытое состояние; при появлении — анимация с forwards,
+     после её завершения класс снимается (см. Reveal.jsx), чтобы transform
+     не создавал containing block и не ломал position: sticky внутри секций. */
+  .scroll-reveal {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  .scroll-reveal--visible {
+    animation: reveal-in .6s ease-out var(--reveal-delay, 0ms) forwards;
+  }
+
   .cart-button-bounce {
     animation: cart-button-bounce .3s ease-out;
   }

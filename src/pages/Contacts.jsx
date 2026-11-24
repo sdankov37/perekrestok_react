@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { img } from '../utils/asset.js';
 import CountUp from '../components/CountUp.jsx';
+import Reveal from '../components/Reveal.jsx';
 
 export default function Contacts() {
   return (
@@ -10,13 +11,13 @@ export default function Contacts() {
         <span className="breadcrumbs__current" aria-current="page">Контакты</span>
       </nav>
 
-      <section className="section">
+      <Reveal as="section" className="section">
         <h1 className="section__title">Контакты</h1>
         <p>Контактная информация интернет-магазина «Перекрёсток»: адрес магазина, телефон, время работы, карта и условия доставки.</p>
-      </section>
+      </Reveal>
 
       {/* 1. О магазине */}
-      <section className="section about">
+      <Reveal as="section" className="section about">
         <div className="about__content">
           <h2 className="section__title">О магазине</h2>
           <p>«Перекрёсток» — сеть супермаркетов. В ассортименте — свежие молочные продукты, хлеб, фрукты, напитки и сладости от проверенных производителей.</p>
@@ -40,10 +41,10 @@ export default function Contacts() {
           loading="lazy"
           decoding="async"
         />
-      </section>
+      </Reveal>
 
       {/* 2. Контактный телефон и адрес */}
-      <section className="section">
+      <Reveal as="section" className="section">
         <h2 className="section__title">Контактный телефон и адрес</h2>
         <ul className="contacts-list">
           <li className="contacts-list__item"><strong>Адрес магазина:</strong> г. Москва, ул. Тверская, 12, стр. 1</li>
@@ -51,10 +52,10 @@ export default function Contacts() {
           <li className="contacts-list__item"><strong>Время работы:</strong> Ежедневно с 08:00 до 23:00</li>
           <li className="contacts-list__item"><strong>E-mail:</strong> <a href="mailto:info@perekrestok-edu.ru">info@perekrestok-edu.ru</a></li>
         </ul>
-      </section>
+      </Reveal>
 
       {/* 3. Карта */}
-      <section className="section">
+      <Reveal as="section" className="section">
         <h2 className="section__title">Как нас найти</h2>
         <p>Магазин находится на ул. Тверская, 12 — 3 минуты пешком от метро «Тверская». Вход со стороны улицы, рядом парковка.</p>
         <div className="map-wrapper">
@@ -80,34 +81,34 @@ export default function Contacts() {
             Открыть на карте
           </a>
         </p>
-      </section>
+      </Reveal>
 
       {/* 4. Доставка */}
       <section className="section">
-        <h2 className="section__title">Доставка</h2>
-        <p>Доставляем продукты по Москве и ближайшему Подмосковью. Бесплатно — при заказе от 1500 ₽.</p>
+        <Reveal><h2 className="section__title">Доставка</h2></Reveal>
+        <Reveal><p>Доставляем продукты по Москве и ближайшему Подмосковью. Бесплатно — при заказе от 1500 ₽.</p></Reveal>
         <ul className="delivery-list">
-          <li className="delivery-list__item">
+          <Reveal as="li" className="delivery-list__item">
             <h3 className="delivery-list__title">Курьером по Москве</h3>
             <p className="delivery-list__text">В день заказа — 299 ₽, в течение 2 часов — 399 ₽. Бесплатно при заказе от 1500 ₽.</p>
-          </li>
-          <li className="delivery-list__item">
+          </Reveal>
+          <Reveal as="li" className="delivery-list__item" delay={120}>
             <h3 className="delivery-list__title">По Подмосковью</h3>
             <p className="delivery-list__text">От 2 до 5 дней в зависимости от расстояния. Стоимость — от 399 ₽.</p>
-          </li>
-          <li className="delivery-list__item">
+          </Reveal>
+          <Reveal as="li" className="delivery-list__item" delay={240}>
             <h3 className="delivery-list__title">Самовывоз</h3>
             <p className="delivery-list__text">Бесплатно. Забрать заказ можно в магазине на ул. Тверская, 12 с 8:00 до 22:00.</p>
-          </li>
+          </Reveal>
         </ul>
       </section>
 
       {/* 5. Обратная связь */}
-      <section className="section">
+      <Reveal as="section" className="section">
         <h2 className="section__title">Обратная связь</h2>
         <p>Оформить заявку или задать вопрос можно на странице оформления.</p>
         <Link className="button button--primary" to="/order">Перейти к форме заявки</Link>
-      </section>
+      </Reveal>
     </>
   );
 }
