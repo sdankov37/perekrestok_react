@@ -3,6 +3,7 @@ import { Link, Navigate, useParams } from 'react-router-dom';
 import ProductCard from '../components/ProductCard.jsx';
 import { useCart } from '../context/CartContext.jsx';
 import { products, findProduct } from '../data/products.js';
+import { img } from '../utils/asset.js';
 
 export default function ProductPage() {
   const { id } = useParams();
@@ -38,7 +39,7 @@ export default function ProductPage() {
       <div className="product-layout">
         <div className="product-gallery">
           <img
-            src={'/images/' + product.image}
+            src={img(product.image)}
             alt={product.title}
             className="product-gallery__main"
             width={600}

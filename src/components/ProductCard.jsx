@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext.jsx';
+import { img } from '../utils/asset.js';
 
 // Карточка товара. props: { product } — объект из src/data/products.js
 export default function ProductCard({ product }) {
@@ -26,7 +27,7 @@ export default function ProductCard({ product }) {
       <Link to={'/product/' + product.id}>
         <img
           className="product-card__image"
-          src={'/images/' + product.image}
+          src={img(product.image)}
           alt={product.title}
         />
       </Link>

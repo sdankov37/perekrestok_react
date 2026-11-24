@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { img } from '../utils/asset.js';
 
 export default function About() {
   return (
@@ -18,7 +19,7 @@ export default function About() {
           <Link to="/catalog" className="button button--primary">Перейти в каталог</Link>
         </div>
         <div className="hero__media">
-          <img src="/images/hero.jpg" alt="Супермаркет Перекрёсток" width={500} height={500} />
+          <img src={img('hero.jpg')} alt="Супермаркет Перекрёсток" width={500} height={500} />
         </div>
       </section>
 

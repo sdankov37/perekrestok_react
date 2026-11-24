@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { img } from '../utils/asset.js';
 
 export default function Contacts() {
   return (
@@ -31,7 +32,7 @@ export default function Contacts() {
         </div>
         <img
           className="about__image"
-          src="/images/store.jpg"
+          src={img('store.jpg')}
           alt="Торговый зал супермаркета «Перекрёсток»"
           width={800}
           height={600}

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { NavLink, Link, Outlet, useLocation } from 'react-router-dom';
 import MiniCart from './MiniCart.jsx';
+import { img } from '../utils/asset.js';
 
 const navClass = ({ isActive }) =>
   'site-nav__link' + (isActive ? ' site-nav__link--active' : '');
@@ -22,7 +23,7 @@ export default function Layout() {
         <div className="site-header__inner">
           <Link to="/" className="site-header__logo">
             <img
-              src="/images/perek_logo.jpg"
+              src={img('perek_logo.jpg')}
               alt="Логотип Перекрёсток"
               className="logo-img"
               width={32}
@@ -72,7 +73,7 @@ export default function Layout() {
           <div className="site-footer__col site-footer__brand">
             <Link to="/" className="site-header__logo">
               <img
-                src="/images/perek_logo.jpg"
+                src={img('perek_logo.jpg')}
                 alt="Логотип Перекрёсток"
                 className="logo-img"
                 width={32}

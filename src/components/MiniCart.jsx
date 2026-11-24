@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext.jsx';
+import { img } from '../utils/asset.js';
 
 // Мини-корзина: кнопка 🛒 с бейджем в навбаре + выдвижная панель справа.
 // variant='header' — только кнопка для мобильной шапки (панель живёт в nav-экземпляре).
@@ -61,7 +62,7 @@ export default function MiniCart({ variant }) {
                         <td>
                           <img
                             className="cart-table__img"
-                            src={'/images/' + item.image}
+                            src={img(item.image)}
                             alt={item.title}
                             width={64}
                             height={64}

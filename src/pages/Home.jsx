@@ -1,11 +1,12 @@
 import { Link, useNavigate } from 'react-router-dom';
 import FlexCarousel from '../components/FlexCarousel/FlexCarousel';
 import { products } from '../data/products.js';
+import { img } from '../utils/asset.js';
 
 const popularItems = [1, 2, 3].map((id) => products.find((p) => p.id === id));
 
 const carouselItems = popularItems.map((p) => ({
-  src: '/images/' + p.image,
+  src: img(p.image),
   alt: p.title,
   title: p.title,
   subtitle: `${p.unit} · ${p.price} ₽`,
@@ -29,8 +30,8 @@ export default function Home() {
         <div className="hero__media">
           <img
             className="hero__image"
-            src="/images/perek_logo.jpg"
-            srcSet="/images/perek_logo.jpg 800w"
+            src={img('perek_logo.jpg')}
+            srcSet={`${img('perek_logo.jpg')} 800w`}
             sizes="(min-width: 900px) 50vw, 100vw"
             alt="Продуктовая композиция: молоко, хлеб, фрукты и сыр"
             width={800}
