@@ -190,12 +190,71 @@ a:hover { color: var(--color-primary-dark); }
 }
 .site-nav__link--active::after { transform: scaleX(1); }
 
-/* ===== 4a. Мобильное меню (< 900px) ===== */
-/* Кнопки открыть/закрыть нет: вкладки меню всегда видны и переносятся */
+/* ===== 4a. Мобильное меню (< 900px): бургер + корзина справа ===== */
+.site-header__actions { display: none; }
+
 @media (max-width: 899px) {
-  .site-header__inner { justify-content: flex-start; }
-  .site-nav { width: 100%; }
-  .site-nav__link { padding: var(--space-sm) var(--space-sm); font-size: 14px; }
+  .site-header__inner { flex-wrap: nowrap; justify-content: flex-start; }
+
+  .site-header__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    margin-left: auto;
+  }
+  /* На мобильной корзина живёт в шапке слева от бургера, а не в списке меню */
+  .site-nav__cart { display: none; }
+  .site-header__cart-slot .site-header__cart { order: 0; }
+
+  .site-header__burger {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 42px;
+    height: 42px;
+    padding: 9px;
+    background: none;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+  }
+  .site-header__burger:hover { background-color: var(--color-info-bg); }
+  .site-header__burger-line {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background-color: var(--color-text);
+    border-radius: 2px;
+    transition: transform .25s ease, opacity .2s ease;
+  }
+  .site-header__burger--open .site-header__burger-line:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .site-header__burger--open .site-header__burger-line:nth-child(2) { opacity: 0; }
+  .site-header__burger--open .site-header__burger-line:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* Меню схлопнуто; раскрывается вертикальной панелью под шапкой */
+  .site-nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .08);
+  }
+  .site-nav--open { display: block; }
+  .site-nav__list {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 0;
+    padding: var(--space-xs) var(--space-md) var(--space-sm);
+  }
+  .site-nav__link {
+    display: block;
+    padding: var(--space-sm) var(--space-sm);
+    font-size: 15px;
+  }
   .site-nav__link::after { left: var(--space-sm); right: var(--space-sm); }
 }
 

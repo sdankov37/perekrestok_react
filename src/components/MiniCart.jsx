@@ -1,18 +1,21 @@
 import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext.jsx';
 
 // Мини-корзина: кнопка 🛒 с бейджем в навбаре + выдвижная панель справа.
-export default function MiniCart() {
+// variant='header' — только кнопка для мобильной шапки (панель живёт в nav-экземпляре).
+export default function MiniCart({ variant }) {
   const { items, count, total, remove, clear } = useCart();
   const [open, setOpen] = useState(false);
 
   // Другие страницы могут открыть панель событием (например, «Перейти в корзину»).
   useEffect(() => {
+    if (variant === 'header') return undefined;
     const openDrawer = () => setOpen(true);
     window.addEventListener('open-mini-cart', openDrawer);
     return () => window.removeEventListener('open-mini-cart', openDrawer);
-  }, []);
+  }, [variant]);
 
   return (
     <>
@@ -20,7 +23,11 @@ export default function MiniCart() {
         type="button"
         className="site-header__cart site-header__cart--button"
         aria-label="Корзина"
-        onClick={() => setOpen(true)}
+        onClick={() =>
+          variant === 'header'
+            ? window.dispatchEvent(new Event('open-mini-cart'))
+            : setOpen(true)
+        }
       >
         🛒
         <span className="site-nav__badge" data-cart-count hidden={count === 0}>
@@ -28,7 +35,7 @@ export default function MiniCart() {
         </span>
       </button>
 
-      {open && (
+      {variant !== 'header' && open && createPortal(
         <>
           <div className="minicart-overlay" onClick={() => setOpen(false)} />
           <aside className="minicart" aria-label="Мини-корзина">
@@ -103,7 +110,8 @@ export default function MiniCart() {
               </>
             )}
           </aside>
-        </>
+        </>,
+        document.body
       )}
     </>
   );

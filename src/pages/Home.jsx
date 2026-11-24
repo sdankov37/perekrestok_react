@@ -1,10 +1,20 @@
-import { Link } from 'react-router-dom';
-import ProductCard from '../components/ProductCard.jsx';
+import { Link, useNavigate } from 'react-router-dom';
+import FlexCarousel from '../components/FlexCarousel/FlexCarousel';
 import { products } from '../data/products.js';
 
-const popular = [1, 2, 3].map((id) => products.find((p) => p.id === id));
+const popularItems = [1, 2, 3].map((id) => products.find((p) => p.id === id));
+
+const carouselItems = popularItems.map((p) => ({
+  src: '/images/' + p.image,
+  alt: p.title,
+  title: p.title,
+  subtitle: `${p.unit} · ${p.price} ₽`,
+  id: p.id
+}));
 
 export default function Home() {
+  const navigate = useNavigate();
+
   return (
     <>
       <section className="hero">
@@ -33,10 +43,20 @@ export default function Home() {
 
       <section className="section">
         <h2 className="section__title">Популярные товары</h2>
-        <div className="products-grid">
-          {popular.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
+        <div style={{ width: '100%', maxWidth: '560px', height: '360px', position: 'relative', margin: '0 auto' }}>
+          <FlexCarousel
+            items={carouselItems}
+            preset="liquid"
+            intro="rise"
+            cardHeight={0.62}
+            gap={14}
+            squeeze={0.2}
+            lensWidth={0.85}
+            lensHeight={0.7}
+            focusOnClick={false}
+            captions
+            onSelect={(index, item) => navigate(`/product/${item.id}`)}
+          />
         </div>
       </section>
 
