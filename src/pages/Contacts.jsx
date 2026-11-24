@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { img } from '../utils/asset.js';
+import CountUp from '../components/CountUp.jsx';
 
 export default function Contacts() {
   return (
@@ -25,9 +26,9 @@ export default function Contacts() {
             <Link to="/order">оформления заявки</Link>.
           </p>
           <ul className="about__facts">
-            <li className="about__fact"><strong data-count="12" data-suffix=" лет">12 лет</strong><span>на рынке</span></li>
-            <li className="about__fact"><strong data-count="10000" data-suffix="+">10 000+</strong><span>товаров в каталоге</span></li>
-            <li className="about__fact"><strong data-count="98" data-suffix="%">98%</strong><span>довольных клиентов</span></li>
+            <li className="about__fact"><CountUp end={12} suffix=" лет" /><span>на рынке</span></li>
+            <li className="about__fact"><CountUp end={10000} suffix="+" /><span>товаров в каталоге</span></li>
+            <li className="about__fact"><CountUp end={98} suffix="%" /><span>довольных клиентов</span></li>
           </ul>
         </div>
         <img
