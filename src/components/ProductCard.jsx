@@ -11,6 +11,7 @@ export default function ProductCard({ product }) {
     try {
       await add(product.id);
       setAdded(true);
+      document.dispatchEvent(new CustomEvent('cart:added'));
       setTimeout(() => setAdded(false), 1200);
     } catch {
       alert(

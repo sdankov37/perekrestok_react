@@ -18,10 +18,9 @@ export default function MiniCart() {
     <>
       <button
         type="button"
-        className="site-header__cart"
+        className="site-header__cart site-header__cart--button"
         aria-label="Корзина"
         onClick={() => setOpen(true)}
-        style={{ background: 'none', border: 'none', cursor: 'pointer', font: 'inherit' }}
       >
         🛒
         <span className="site-nav__badge" data-cart-count hidden={count === 0}>
@@ -31,33 +30,8 @@ export default function MiniCart() {
 
       {open && (
         <>
-          <div
-            onClick={() => setOpen(false)}
-            style={{
-              position: 'fixed',
-              inset: 0,
-              background: 'rgba(0, 0, 0, .4)',
-              zIndex: 900,
-            }}
-          />
-          <aside
-            aria-label="Мини-корзина"
-            style={{
-              position: 'fixed',
-              top: 0,
-              right: 0,
-              bottom: 0,
-              width: 'min(360px, 90vw)',
-              background: 'var(--color-white, #fff)',
-              zIndex: 901,
-              display: 'flex',
-              flexDirection: 'column',
-              padding: 'var(--space-md, 16px)',
-              gap: 'var(--space-sm, 12px)',
-              overflowY: 'auto',
-              boxShadow: '-4px 0 16px rgba(0, 0, 0, .15)',
-            }}
-          >
+          <div className="minicart-overlay" onClick={() => setOpen(false)} />
+          <aside className="minicart" aria-label="Мини-корзина">
             <div className="account-section__head">
               <h2 className="account-section__title">Корзина</h2>
               <button
