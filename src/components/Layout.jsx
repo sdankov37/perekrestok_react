@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { NavLink, Link, Outlet, useLocation } from 'react-router-dom';
 import MiniCart from './MiniCart.jsx';
+import BackToTop from './BackToTop.jsx';
+import { useTheme } from '../hooks/useTheme.js';
 import { img } from '../utils/asset.js';
 
 const navClass = ({ isActive }) =>
@@ -9,6 +11,7 @@ const navClass = ({ isActive }) =>
 export default function Layout() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { pathname } = useLocation();
+  const { theme, toggle } = useTheme();
 
   // Закрываем мобильное меню при переходе на другую страницу.
   useEffect(() => {
@@ -43,11 +46,29 @@ export default function Layout() {
               <li><NavLink to="/contacts" className={navClass}>Контакты</NavLink></li>
               <li><NavLink to="/account" className={navClass}>Кабинет</NavLink></li>
               <li className="site-nav__cart"><MiniCart /></li>
+              <li>
+                <button
+                  type="button"
+                  className="theme-toggle"
+                  onClick={toggle}
+                  aria-label={theme === 'dark' ? 'Включить светлую тему' : 'Включить тёмную тему'}
+                >
+                  {theme === 'dark' ? '☀️' : '🌙'}
+                </button>
+              </li>
             </ul>
           </nav>
 
           <div className="site-header__actions">
             <div className="site-header__cart-slot"><MiniCart variant="header" /></div>
+            <button
+              type="button"
+              className="theme-toggle"
+              onClick={toggle}
+              aria-label={theme === 'dark' ? 'Включить светлую тему' : 'Включить тёмную тему'}
+            >
+              {theme === 'dark' ? '☀️' : '🌙'}
+            </button>
             <button
               type="button"
               className={'site-header__burger' + (menuOpen ? ' site-header__burger--open' : '')}
@@ -107,6 +128,8 @@ export default function Layout() {
           </div>
         </div>
       </footer>
+
+      <BackToTop />
     </>
   );
 }

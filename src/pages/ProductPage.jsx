@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import ProductCard from '../components/ProductCard.jsx';
 import Reveal from '../components/Reveal.jsx';
@@ -11,6 +11,17 @@ export default function ProductPage() {
   const product = findProduct(id);
   const { add } = useCart();
   const [added, setAdded] = useState(false);
+  const [reviews, setReviews] = useState([
+    { author: 'Мария Т.', text: 'Отличный товар, свежий и качественный. Заказываю не первый раз — всегда доволен покупкой и быстрой доставкой.', rating: 5 },
+    { author: 'Олег Н.', text: 'Привезли в аккуратной упаковке, всё соответствует описанию. Рекомендую этот магазин.', rating: 5 },
+  ]);
+  const [author, setAuthor] = useState('');
+  const [text, setText] = useState('');
+  const [rating, setRating] = useState(5);
+
+  useEffect(() => {
+    document.title = `${product?.title || 'Товар'} — Перекрёсток`;
+  }, [product]);
 
   if (!product) return <Navigate to="/catalog" replace />;
 
@@ -27,6 +38,13 @@ export default function ProductPage() {
         'Проверьте, что Go-сервер запущен: cd server && go run .'
       );
     }
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (!author.trim() || !text.trim()) return;
+    setReviews(prev => [...prev, { author: author.trim(), text: text.trim(), rating }]);
+    setAuthor(''); setText(''); setRating(5);
   }
 
   return (
@@ -115,22 +133,39 @@ export default function ProductPage() {
       <section className="section">
         <Reveal><h2 className="section__title">Отзывы покупателей</h2></Reveal>
         <div className="reviews-list">
-          <Reveal as="article" className="review">
-            <div className="review__header">
-              <span className="review__author">Мария Т.</span>
-              <span className="review__rating" aria-label="Оценка 5 из 5">★★★★★</span>
-            </div>
-            <p className="review__text">Отличный товар, свежий и качественный. Заказываю не первый раз — всегда доволен покупкой и быстрой доставкой.</p>
-          </Reveal>
-
-          <Reveal as="article" className="review" delay={120}>
-            <div className="review__header">
-              <span className="review__author">Олег Н.</span>
-              <span className="review__rating" aria-label="Оценка 5 из 5">★★★★★</span>
-            </div>
-            <p className="review__text">Привезли в аккуратной упаковке, всё соответствует описанию. Рекомендую этот магазин.</p>
-          </Reveal>
+          {reviews.map((r, i) => (
+            <article className="review" key={i}>
+              <div className="review__header">
+                <span className="review__author">{r.author}</span>
+                <span className="review__rating" role="img" aria-label={`Оценка ${r.rating} из 5`}>
+                  {'★'.repeat(r.rating)}{'☆'.repeat(5 - r.rating)}
+                </span>
+              </div>
+              <p className="review__text">{r.text}</p>
+            </article>
+          ))}
         </div>
+
+        <form className="review-form" onSubmit={handleSubmit}>
+          <h3 className="review-form__title">Оставить отзыв</h3>
+          <label className="review-form__label">
+            Имя
+            <input type="text" value={author} onChange={e => setAuthor(e.target.value)}
+                   required minLength={2} placeholder="Ваше имя" />
+          </label>
+          <label className="review-form__label">
+            Оценка
+            <select value={rating} onChange={e => setRating(Number(e.target.value))}>
+              {[5,4,3,2,1].map(n => <option key={n} value={n}>{n} ★</option>)}
+            </select>
+          </label>
+          <label className="review-form__label">
+            Отзыв
+            <textarea value={text} onChange={e => setText(e.target.value)}
+                      required minLength={5} rows={4} placeholder="Поделитесь впечатлением" />
+          </label>
+          <button type="submit" className="button button--primary">Отправить отзыв</button>
+        </form>
       </section>
 
       <Reveal as="section" className="section">

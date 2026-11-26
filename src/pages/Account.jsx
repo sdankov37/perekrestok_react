@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ProductCard from '../components/ProductCard.jsx';
 import Reveal from '../components/Reveal.jsx';
@@ -47,6 +47,31 @@ const TABS = [
   { href: '#settings', label: '🎁 Промокоды' },
 ];
 
+function DeliveryProgress({ total }) {
+  const remaining = Math.max(0, FREE_DELIVERY_THRESHOLD - total);
+  const percent = Math.min(100, (total / FREE_DELIVERY_THRESHOLD) * 100);
+  const isFree = total >= FREE_DELIVERY_THRESHOLD;
+
+  return (
+    <div className="delivery-progress">
+      <div className="delivery-progress__bar">
+        <div className="delivery-progress__fill"
+             style={{ width: `${percent}%` }}
+             role="progressbar"
+             aria-valuenow={Math.round(percent)}
+             aria-valuemin={0}
+             aria-valuemax={100}
+             aria-label="Прогресс до бесплатной доставки" />
+      </div>
+      <p className="delivery-progress__text">
+        {isFree
+          ? <strong>Бесплатная доставка ✓</strong>
+          : <>До бесплатной доставки осталось <strong>{remaining} ₽</strong></>}
+      </p>
+    </div>
+  );
+}
+
 export default function Account() {
   const { items, total, add, remove } = useCart();
   const [delivery, setDelivery] = useState('courier');
@@ -54,8 +79,9 @@ export default function Account() {
   const [repeatState, setRepeatState] = useState({}); // number → 'loading' | 'done'
   const [copiedCode, setCopiedCode] = useState(null);
 
-  const remaining = FREE_DELIVERY_THRESHOLD - total;
-  const percent = Math.min(100, Math.round((total / FREE_DELIVERY_THRESHOLD) * 100));
+  useEffect(() => {
+    document.title = 'Личный кабинет — Перекрёсток';
+  }, []);
 
   async function handleRepeat(order) {
     setRepeatState((s) => ({ ...s, [order.number]: 'loading' }));
@@ -120,18 +146,7 @@ export default function Account() {
           <Link to="/catalog" className="account-section__aside-link">+ Добавить товары</Link>
         </div>
 
-        <div className="delivery-progress">
-          <div className="delivery-progress__bar">
-            <div className="delivery-progress__fill" style={{ width: percent + '%' }} />
-          </div>
-          <p className="delivery-progress__text">
-            {total >= FREE_DELIVERY_THRESHOLD ? (
-              <strong>Бесплатная доставка ✓</strong>
-            ) : (
-              <>До бесплатной доставки осталось <strong>{remaining} ₽</strong></>
-            )}
-          </p>
-        </div>
+        <DeliveryProgress total={total} />
 
         <p className="cart-empty" hidden={items.length > 0}>
           Ваша корзина пуста. <Link to="/catalog">Перейти в каталог</Link>

@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ProductCard from '../components/ProductCard.jsx';
 import Reveal from '../components/Reveal.jsx';
@@ -26,6 +26,10 @@ export default function Catalog() {
     minPrice: 0,
     maxPrice: Infinity,
   });
+
+  useEffect(() => {
+    document.title = 'Каталог — Перекрёсток';
+  }, []);
 
   function toggleCategory(value) {
     setDraftCategories((prev) => {

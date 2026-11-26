@@ -1,8 +1,13 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Reveal from '../components/Reveal.jsx';
 import { img } from '../utils/asset.js';
 
 export default function About() {
+  useEffect(() => {
+    document.title = 'О магазине — Перекрёсток';
+  }, []);
+
   return (
     <>
       <nav className="breadcrumbs" aria-label="Хлебные крошки">

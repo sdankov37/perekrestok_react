@@ -35,7 +35,13 @@ export default function ProductCard({ product }) {
         <img
           className="product-card__image"
           src={img(product.image)}
+          srcSet={`${img(product.image)} 400w, ${img(product.image)} 800w`}
+          sizes="(min-width: 900px) 380px, (min-width: 600px) 50vw, 100vw"
           alt={product.title}
+          loading="lazy"
+          decoding="async"
+          width={400}
+          height={300}
         />
       </Link>
       <h3 className="product-card__title">

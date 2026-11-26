@@ -1,9 +1,14 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { img } from '../utils/asset.js';
 import CountUp from '../components/CountUp.jsx';
 import Reveal from '../components/Reveal.jsx';
 
 export default function Contacts() {
+  useEffect(() => {
+    document.title = 'Контакты — Перекрёсток';
+  }, []);
+
   return (
     <>
       <nav className="breadcrumbs" aria-label="Хлебные крошки">

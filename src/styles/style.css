@@ -35,6 +35,19 @@
   --container: 1200px;
 }
 
+/* ===== 1a. Тёмная тема ===== */
+[data-theme="dark"] {
+  --color-bg: #0f1410;
+  --color-surface: #1a2018;
+  --color-text: #e8ece6;
+  --color-muted: #9aa89a;
+  --color-border: #2d3a2b;
+  --color-primary: #3fba73;
+  --color-primary-dark: #2f8c55;
+  --color-accent: #e53e4a;
+  --color-white: #ffffff;
+}
+
 /* ===== 2. База ===== */
 *, *::before, *::after { box-sizing: border-box; }
 
@@ -148,10 +161,17 @@ a:hover { color: var(--color-primary-dark); }
   transition: background-color .2s;
 }
 .site-header__cart:hover { background-color: var(--color-info-bg); }
+/* Кнопка корзины в навбаре — те же вертикальные отступы, что у пунктов меню */
+.site-nav__cart .site-header__cart {
+  padding-top: var(--space-sm);
+  padding-bottom: var(--space-sm);
+  align-self: center;
+}
 .site-header__inner .site-header__logo { margin-right: auto; }
 .site-nav__list {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: var(--space-xs);
   margin: 0;
   padding: 0;
@@ -189,6 +209,22 @@ a:hover { color: var(--color-primary-dark); }
   font-weight: 600;
 }
 .site-nav__link--active::after { transform: scaleX(1); }
+
+/* Кнопка переключения темы */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  transition: background-color .2s;
+}
+.theme-toggle:hover { background-color: var(--color-bg); }
 
 /* ===== 4a. Мобильное меню (< 900px): бургер + корзина справа ===== */
 .site-header__actions { display: none; }
@@ -551,35 +587,63 @@ a:hover { color: var(--color-primary-dark); }
 }
 
 /* ===== 18. Кнопка «Наверх» ===== */
-.scroll-top {
+.back-to-top {
   position: fixed;
   right: var(--space-md);
   bottom: var(--space-md);
   z-index: 500;
-  width: 27px;
-  height: 27px;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  border-radius: 50%;
+  gap: 6px;
+  min-height: 44px; /* Комфортная зона нажатия на мобильных */
+  padding: 0 14px;
+  border: none;
+  border-radius: 999px;
   background-color: var(--color-primary);
   color: var(--color-white);
-  text-decoration: none;
-  font-size: 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(13, 92, 55, .28);
   opacity: 0;
   visibility: hidden;
-  transform: translateY(12px);
-  transition: opacity .25s ease, visibility .25s ease, transform .25s ease, background-color .2s;
+  transform: translateY(16px);
+  transition:
+    opacity .3s ease,
+    visibility .3s ease,
+    transform .3s ease,
+    background-color .2s ease,
+    box-shadow .2s ease;
 }
-.scroll-top--visible {
+.back-to-top__icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  transition: transform .25s ease;
+}
+.back-to-top--visible {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
 }
-.scroll-top:hover {
+.back-to-top:hover,
+.back-to-top:focus-visible {
   background-color: var(--color-primary-dark);
   color: var(--color-white);
+  box-shadow: 0 8px 24px rgba(13, 92, 55, .35);
+  transform: translateY(-3px);
+}
+.back-to-top:hover .back-to-top__icon,
+.back-to-top:focus-visible .back-to-top__icon {
+  transform: translateY(-2px);
+}
+.back-to-top:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+}
+.back-to-top:active {
+  transform: translateY(0);
 }
 
 /* ===== 19. Блок .js-message ===== */

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import FlexCarousel from '../components/FlexCarousel/FlexCarousel';
 import Reveal from '../components/Reveal.jsx';
@@ -16,6 +17,10 @@ const carouselItems = popularItems.map((p) => ({
 
 export default function Home() {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    document.title = 'Главная — Перекрёсток';
+  }, []);
 
   return (
     <>
